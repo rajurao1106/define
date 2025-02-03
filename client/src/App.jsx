@@ -75,7 +75,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>AI Text Generator</h1>
+      <h1>Define Your Name</h1>
 
       <form onSubmit={handleSubmit}>
         <input
