@@ -77,8 +77,8 @@ const App = () => {
               Explore the Deeper Meaning of Your Name
             </span>
           </h1>
-          <p className="text-gray-600 text-lg flex">
-            What is the meaning of the name <span className="text-pink-500 mx-1">{prompt}</span>?
+          <p className="text-gray-600 text-lg">
+            What is the meaning of the name <span className="text-pink-500">{prompt}</span> ?
           </p>
         </div>
 
