@@ -82,7 +82,7 @@ const App = () => {
           type="text"
           value={prompt}
           onChange={handleInputChange}
-          placeholder="Enter your question or request..."
+          placeholder="Enter Your Name"
         />
         <button type="submit">Generate Response</button>
       </form>
