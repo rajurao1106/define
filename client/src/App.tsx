@@ -10,7 +10,7 @@ const App = () => {
   const apiKey = "AIzaSyAx8jwwCseYD1gXmAsF09cyLrl9z8PdKdY";
 
   const customizePrompt = (userInput: string) => {
-    return `when i put any name give short meaning of that name: "${userInput}"`;
+    return `when i put any name give meaning of that name: "${userInput}"`;
   };
 
   const fetchContent = async () => {
@@ -80,10 +80,10 @@ const App = () => {
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-fade-in">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
-              Name Meaning Oracle
+            Explore the Deeper Meaning of Your Name
             </span>
           </h1>
-          <p className="text-gray-600 text-lg">Discover the hidden meaning behind any name</p>
+          <p className="text-gray-600 text-lg">Discover the hidden meaning behind your name</p>
         </div>
 
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 mb-8">
