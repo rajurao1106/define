@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Search, Loader2, Sparkles, AlertCircle } from "lucide-react";
 
 const App = () => {
-  const [response, setResponse] = useState<string | null>(null);
+  const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
   const [prompt, setPrompt] = useState("");
 
   const apiKey = "AIzaSyAx8jwwCseYD1gXmAsF09cyLrl9z8PdKdY";
 
-  const customizePrompt = (userInput: string) => {
-    return `when i put any name give meaning of that name: "${userInput}"`;
+  const customizePrompt = (userInput) => {
+    return `when I put any name, give the meaning of that name: "${userInput}"`;
   };
 
   const fetchContent = async () => {
@@ -30,20 +30,13 @@ const App = () => {
 
     try {
       const finalPrompt = customizePrompt(prompt);
-
       const res = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [
-              {
-                parts: [{ text: finalPrompt }],
-              },
-            ],
+            contents: [{ parts: [{ text: finalPrompt }] }],
           }),
         }
       );
@@ -54,22 +47,23 @@ const App = () => {
 
       const data = await res.json();
       const contentText =
-        data?.candidates?.[0]?.content?.parts?.[0]?.text || "No response received. Try a different prompt!";
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "No response received. Try a different prompt!";
 
       setResponse(contentText);
-    } catch (error: any) {
+    } catch (error) {
       setError(error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event) => {
     setPrompt(event.target.value);
     setError(null);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     fetchContent();
   };
@@ -80,10 +74,12 @@ const App = () => {
         <div className="text-center mb-12 flex flex-col justify-center items-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-fade-in">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
-            Explore the Deeper Meaning of Your Name
+              Explore the Deeper Meaning of Your Name
             </span>
           </h1>
-          <p className="text-gray-600 text-lg flex">What is the meaning of the name<p className="text-pink-500 mx-1">{prompt} </p>?</p>
+          <p className="text-gray-600 text-lg flex">
+            What is the meaning of the name <span className="text-pink-500 mx-1">{prompt}</span>?
+          </p>
         </div>
 
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 mb-8">
@@ -95,7 +91,7 @@ const App = () => {
                 value={prompt}
                 onChange={handleInputChange}
                 placeholder="Enter a name..."
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200 bg-white/90 placeholder-gray-400"
+                className="w-full outline-none pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200 bg-white/90 placeholder-gray-400"
               />
             </div>
             <button
