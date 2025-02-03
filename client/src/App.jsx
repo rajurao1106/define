@@ -77,9 +77,10 @@ const App = () => {
               Explore the Deeper Meaning of Your Name
             </span>
           </h1>
-          <p className="text-gray-600 text-lg w-full overflow-scroll">
-            What is the meaning of the name <span className="text-pink-500">{prompt}</span> ?
-          </p>
+          <p className="text-gray-600 text-lg w-full overflow-x-auto whitespace-nowrap scrollbar-hide">
+          What Is The Meaning Of Your Name <span className="text-pink-500">{prompt}</span> ?
+</p>
+
         </div>
 
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 mb-8">
