@@ -71,13 +71,13 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100">
       <div className="container mx-auto px-4 py-12 max-w-3xl">
-        <div className="text-center mb-12 flex flex-col justify-center items-center overflow-scroll">
+        <div className="text-center mb-12 flex flex-col justify-center items-center ">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-fade-in">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
               Explore the Deeper Meaning of Your Name
             </span>
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-lg w-full overflow-scroll">
             What is the meaning of the name <span className="text-pink-500">{prompt}</span> ?
           </p>
         </div>
