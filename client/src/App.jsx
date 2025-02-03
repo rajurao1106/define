@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 
 const App = () => {
   const [response, setResponse] = useState(null);
@@ -50,7 +49,7 @@ const App = () => {
       const data = await res.json();
       const contentText =
         data?.candidates?.[0]?.content?.parts?.[0]?.text || "No response received. Try a different prompt!";
-      
+
       setResponse(contentText);
     } catch (error) {
       setError(error.message);
@@ -61,7 +60,6 @@ const App = () => {
 
   useEffect(() => {
     fetchContent();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Run only once on component mount
 
   const handleInputChange = (event) => {
@@ -74,25 +72,31 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>Define Your Name</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Define Your Name</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full max-w-md">
         <input
           type="text"
           value={prompt}
           onChange={handleInputChange}
           placeholder="Enter Your Name"
+          className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <button type="submit">Generate Response</button>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition"
+        >
+          Generate Response
+        </button>
       </form>
 
-      {loading && <p>Generating response, please wait...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {loading && <p className="mt-4 text-gray-600">Generating response, please wait...</p>}
+      {error && <p className="mt-4 text-red-500">{error}</p>}
       {response && (
-        <div>
-          <h2>AI Response:</h2>
-          <p>{response}</p>
+        <div className="mt-6 p-4 bg-white shadow-md rounded-lg max-w-md text-center">
+          <h2 className="text-xl font-semibold text-gray-700">AI Response:</h2>
+          <p className="text-gray-600 mt-2">{response}</p>
         </div>
       )}
     </div>

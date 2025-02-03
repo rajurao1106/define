@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "npm run dev --prefix client",
+    "dev": "concurrently \"nodemon server/index.js\" \"npm run dev --prefix client\"",
     "start": "nodemon server/index.js",
     "build": "npm install && npm install --prefix client && npm run build --prefix client"
   },
@@ -13,10 +13,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "nodemon": "^3.1.9",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9"
   }
 }
