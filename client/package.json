@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.0.3",
     "express": "^4.21.2",
     "gemini-ai": "file:",
+    "lucide-react": "^0.474.0",
     "path": "^0.12.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
