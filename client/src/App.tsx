@@ -1,0 +1,144 @@
+import React, { useState, useEffect } from "react";
+import { Search, Loader2, Sparkles, AlertCircle } from "lucide-react";
+
+const App = () => {
+  const [response, setResponse] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [prompt, setPrompt] = useState("");
+
+  const apiKey = "AIzaSyAx8jwwCseYD1gXmAsF09cyLrl9z8PdKdY";
+
+  const customizePrompt = (userInput: string) => {
+    return `when i put any name give short meaning of that name: "${userInput}"`;
+  };
+
+  const fetchContent = async () => {
+    if (!apiKey) {
+      setError("API key is missing. Please provide a valid API key.");
+      return;
+    }
+
+    if (!prompt.trim()) {
+      setError("Please enter a name to get its meaning.");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setResponse(null);
+
+    try {
+      const finalPrompt = customizePrompt(prompt);
+
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [{ text: finalPrompt }],
+              },
+            ],
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Oops! Something went wrong while fetching the response.");
+      }
+
+      const data = await res.json();
+      const contentText =
+        data?.candidates?.[0]?.content?.parts?.[0]?.text || "No response received. Try a different prompt!";
+
+      setResponse(contentText);
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPrompt(event.target.value);
+    setError(null);
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    fetchContent();
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100">
+      <div className="container mx-auto px-4 py-12 max-w-3xl">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-fade-in">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
+              Name Meaning Oracle
+            </span>
+          </h1>
+          <p className="text-gray-600 text-lg">Discover the hidden meaning behind any name</p>
+        </div>
+
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 mb-8">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <input
+                type="text"
+                value={prompt}
+                onChange={handleInputChange}
+                placeholder="Enter a name..."
+                className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200 bg-white/90 placeholder-gray-400"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="animate-spin h-5 w-5" />
+                  <span>Discovering meaning...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="h-5 w-5" />
+                  <span>Reveal Meaning</span>
+                </>
+              )}
+            </button>
+          </form>
+        </div>
+
+        {error && (
+          <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg mb-6 flex items-start gap-3">
+            <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+            <p className="text-red-700">{error}</p>
+          </div>
+        )}
+
+        {response && (
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 md:p-8 transform transition-all duration-500 animate-fade-in">
+            <div className="flex items-center gap-2 mb-4">
+              <Sparkles className="h-6 w-6 text-purple-600" />
+              <h2 className="text-xl font-semibold text-gray-800">Name Meaning</h2>
+            </div>
+            <div className="prose prose-purple max-w-none">
+              <p className="text-gray-700 leading-relaxed">{response}</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default App;
