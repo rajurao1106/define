@@ -71,7 +71,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100">
       <div className="container mx-auto px-4 py-12 max-w-3xl">
-        <div className="text-center mb-12 flex flex-col justify-center items-center">
+        <div className="text-center mb-12 flex flex-col justify-center items-center overflow-scroll">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-fade-in">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
               Explore the Deeper Meaning of Your Name
