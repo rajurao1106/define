@@ -77,13 +77,13 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100">
       <div className="container mx-auto px-4 py-12 max-w-3xl">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 flex flex-col justify-center items-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-fade-in">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
             Explore the Deeper Meaning of Your Name
             </span>
           </h1>
-          <p className="text-gray-600 text-lg">Discover the hidden meaning behind your name</p>
+          <p className="text-gray-600 text-lg flex">What is the meaning of the name<p className="text-pink-500 mx-1">{prompt} </p>?</p>
         </div>
 
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 md:p-8 mb-8">
