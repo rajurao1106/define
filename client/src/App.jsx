@@ -74,7 +74,7 @@ const App = () => {
         <div className="text-center mb-12 flex flex-col justify-center items-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-fade-in">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
-              Explore the Deeper Meaning of Your Name
+              Explore the important Meaning of Your Name
             </span>
           </h1>
           <p className="text-gray-600 justify-center items-center text-md flex-wrap flex w-full overflow-x-auto whitespace-nowrap scrollbar-hide">
