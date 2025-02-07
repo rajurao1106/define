@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Search, Loader2, Sparkles, AlertCircle, Heart } from "lucide-react";
 
-const TalkToGirlfriend = () => {
+const TalkToBoyfriend = () => {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -10,7 +10,7 @@ const TalkToGirlfriend = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
 
   const customizePrompt = (userInput) => {
-    return `एक भारतीय प्रेमिका की तरह व्यवहार करो जो मुझसे फ़्लर्ट करती है और जब मैं हिंदी में जवाब देता हूँ तो मज़ाकिया ढंग से मुझसे सवाल करती है: "${userInput}"`;
+    return `एक भारतीय प्रेमी की तरह व्यवहार करो जो मुझसे फ़्लर्ट करता है और जब मैं हिंदी में जवाब देती हूँ तो मज़ाकिया ढंग से मुझसे सवाल करता है: "${userInput}"`;
   };
 
   const fetchContent = async () => {
@@ -70,7 +70,7 @@ const TalkToGirlfriend = () => {
       <div className="max-w-2xl w-full bg-white/80 backdrop-blur-md shadow-xl rounded-2xl p-6 md:p-8 text-center">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-pink-500">
-            Chat with Your Virtual Girlfriend 💕
+            Chat with Your Virtual Boyfriend 💕
           </span>
         </h1>
         <p className="text-gray-600 mb-6">Flirty, Fun, and Engaging Conversations!</p>
@@ -107,7 +107,7 @@ const TalkToGirlfriend = () => {
           <div className="mt-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 transform transition-all duration-500 animate-fade-in">
             <div className="flex items-center gap-2 mb-4">
               <Heart className="h-6 w-6 text-red-500" />
-              <h2 className="text-xl font-semibold text-gray-800">Your Girlfriend Replies:</h2>
+              <h2 className="text-xl font-semibold text-gray-800">Your Boyfriend Replies:</h2>
             </div>
             <p className="text-gray-700 leading-relaxed">{response}</p>
           </div>
@@ -117,4 +117,4 @@ const TalkToGirlfriend = () => {
   );
 };
 
-export default TalkToGirlfriend;
+export default TalkToBoyfriend;
