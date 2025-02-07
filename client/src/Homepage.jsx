@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Sparkles, MessageCircleHeart } from "lucide-react";
 import { IoMdFemale } from "react-icons/io";
+import { IoMdMale } from "react-icons/io";
 
 
 export default function Homepage() {
@@ -41,7 +42,7 @@ export default function Homepage() {
                 onClick={() => setOpen((prev) => !prev)}
                 className="flex items-center justify-center gap-3 bg-white border-2 border-purple-500 text-purple-600 py-3 px-6 rounded-xl font-medium shadow-md transition-all duration-200 transform hover:bg-purple-600 hover:text-white hover:scale-105 hover:shadow-xl"
               >
-                <IoMdFemale className="h-5 w-5" />
+                <IoMdMale className="h-5 w-5" />
                 Male
               </Link>
               <Link
@@ -49,7 +50,7 @@ export default function Homepage() {
                 onClick={() => setOpen((prev) => !prev)}
                 className="flex items-center justify-center gap-3 bg-white border-2 border-purple-500 text-purple-600 py-3 px-6 rounded-xl font-medium shadow-md transition-all duration-200 transform hover:bg-purple-600 hover:text-white hover:scale-105 hover:shadow-xl"
               >
-                <MessageCircleHeart className="h-5 w-5" />
+                <IoMdFemale className="h-5 w-5" />
                 Female
               </Link>
             </div>
