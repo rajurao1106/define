@@ -11,12 +11,14 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.3",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "gemini-ai": "file:",
     "lucide-react": "^0.474.0",
     "path": "^0.12.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^7.1.5",
     "tailwindcss": "^4.0.3"
   },
   "devDependencies": {
