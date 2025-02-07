@@ -30,7 +30,7 @@ export default function Homepage() {
           {open ? (
             <div
               onClick={() => setOpen((prev) => !prev)}
-              className="flex items-center justify-center gap-3 bg-white border-2 border-purple-500 text-purple-600 py-3 px-6 rounded-xl font-medium shadow-md transition-all duration-200 transform hover:bg-purple-600 hover:text-white hover:scale-105 hover:shadow-xl"
+              className="flex cursor-pointer items-center justify-center gap-3 bg-white border-2 border-purple-500 text-purple-600 py-3 px-6 rounded-xl font-medium shadow-md transition-all duration-200 transform hover:bg-purple-600 hover:text-white hover:scale-105 hover:shadow-xl"
             >
               <MessageCircleHeart className="h-5 w-5" />
               Talk To Friend
