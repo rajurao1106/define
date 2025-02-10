@@ -83,7 +83,7 @@ const TalkToBoyfriend = () => {
               value={prompt}
               onChange={handleInputChange}
               placeholder="Type your message..."
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition-all bg-white"
+              className="w-full pl-10 pr-4 py-3 outline-hidden rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition-all bg-white"
             />
           </div>
           <button
