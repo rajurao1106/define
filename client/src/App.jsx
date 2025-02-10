@@ -11,7 +11,7 @@ export default function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<PersonalitySurvey/>}/>
+          <Route path="/" element={<Homepage/>}/>
           <Route path="/Explore-the-Deeper-Meaning" element={<MeaningYourName/>}/>
           <Route path="/Talk-To-Girlfriend" element={<TalkToGirlfriend/>}/>
           <Route path="/Talk-To-Boyfriend" element={<TalkToBoyfriend/>}/>
