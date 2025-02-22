@@ -27,6 +27,14 @@ export default function Homepage() {
             Explore the Deeper Meaning of Your Name
           </Link>
 
+          <Link
+            to="/Make-A-Friends"
+            className="flex items-center justify-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-6 rounded-xl font-medium shadow-md transition-all duration-200 transform hover:scale-105 hover:shadow-xl"
+          >
+            <Sparkles className="h-5 w-5" />
+            Make A Friends
+          </Link>
+
           {open ? (
             <div
               onClick={() => setOpen((prev) => !prev)}
