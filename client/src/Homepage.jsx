@@ -12,7 +12,7 @@ export default function Homepage() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 p-6">
       <div className="bg-white/80 backdrop-blur-lg shadow-lg rounded-2xl p-8 w-full max-w-md text-center">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">
-          Welcome to{" "}
+          Welcome, to{" "}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
             Fun & Meaningful Experiences
           </span>
