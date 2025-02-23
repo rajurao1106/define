@@ -8,7 +8,7 @@ const App = () => {
   const [language, setLanguage] = useState("hi-IN"); // डिफ़ॉल्ट हिंदी भाषा
   const [jokeMode, setJokeMode] = useState(false); // जोक मोड
 
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY; // Vite env वेरिएबल
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   const startListening = useCallback(() => {
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
