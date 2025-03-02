@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 const DB_NAME = "AI_Friend_DB";
 const STORE_NAME = "conversations";
 const DB_VERSION = 1;
+const apiKey = import.meta.env.VITE_API_KEY;
 
 const openDB = () => {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
-    request.onerror = (event) => reject("Database error");
+    request.onerror = () => reject("Database error");
     request.onsuccess = (event) => resolve(event.target.result);
     request.onupgradeneeded = (event) => {
       const db = event.target.result;
@@ -23,7 +24,6 @@ const saveToIndexedDB = async (message) => {
   const tx = db.transaction(STORE_NAME, "readwrite");
   const store = tx.objectStore(STORE_NAME);
   store.add({ message, timestamp: Date.now() });
-  tx.oncomplete = () => console.log("Message saved to IndexedDB");
 };
 
 const getAllMessages = async () => {
@@ -37,47 +37,82 @@ const getAllMessages = async () => {
 };
 
 const AIChat = () => {
+  const [listening, setListening] = useState(false);
+  const [processing, setProcessing] = useState(false);
+  const [response, setResponse] = useState("");
+  const [error, setError] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
 
   useEffect(() => {
     getAllMessages().then(setMessages);
   }, []);
 
-  const sendMessage = () => {
-    if (!input.trim()) return;
-    const newMessage = { user: "You", text: input };
-    setMessages((prev) => [...prev, newMessage]);
-    saveToIndexedDB(newMessage);
-    localStorage.setItem("lastMessage", JSON.stringify(newMessage));
-    setInput("");
+  const startListening = useCallback(() => {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "hi-IN";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = () => setListening(true);
+    recognition.onresult = async (event) => {
+      const userInput = event.results[0][0].transcript;
+      setProcessing(true);
+      setError(null);
+      await fetchAIResponse(userInput);
+    };
+    recognition.onerror = () => setError("Speech recognition failed.");
+    recognition.onend = () => setListening(false);
+
+    recognition.start();
+  }, []);
+
+  const fetchAIResponse = async (text) => {
+    try {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ contents: [{ parts: [{ text }] }] }),
+        }
+      );
+
+      if (!res.ok) throw new Error("AI response failed.");
+      const data = await res.json();
+      const aiText =
+        data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't understand.";
+
+      setResponse(aiText);
+      speak(aiText);
+      saveToIndexedDB({ user: "AI", text: aiText });
+      setMessages((prev) => [...prev, { user: "AI", text: aiText }]);
+    } catch (error) {
+      setError("Error fetching AI response.");
+    } finally {
+      setProcessing(false);
+    }
+  };
+
+  const speak = (text) => {
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.lang = "hi-IN";
+    window.speechSynthesis.speak(speech);
   };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6">
       <h1 className="text-3xl font-bold mb-6">🤖 AI Friend</h1>
-      <div className="w-full max-w-md bg-gray-800 p-4 rounded-lg">
-        <div className="h-64 overflow-y-auto mb-4 border-b border-gray-700">
-          {messages.map((msg, index) => (
-            <p key={index} className="p-2">
-              <strong>{msg.user}:</strong> {msg.text}
-            </p>
-          ))}
+      <button onClick={startListening} className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md">
+        🎤 Speak
+      </button>
+      {processing && <p className="text-yellow-400 mt-4">Processing AI response...</p>}
+      {response && (
+        <div className="mt-6 bg-gray-800 p-4 rounded-lg shadow-lg max-w-md text-center">
+          <h2 className="text-lg font-semibold">🤖 AI:</h2>
+          <p className="mt-2 text-gray-300">{response}</p>
         </div>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type a message..."
-          className="w-full p-2 rounded bg-gray-700 text-white"
-        />
-        <button
-          onClick={sendMessage}
-          className="w-full mt-2 bg-blue-600 hover:bg-blue-500 text-white py-2 rounded-lg"
-        >
-          Send
-        </button>
-      </div>
+      )}
+      {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
   );
 };
